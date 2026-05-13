@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String    // Hashed password
+  wallets       Wallet[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@map("users")
+}
+
+model Wallet {
+  id            String    @id @default(cuid())
+  address       String
+  userId        String
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trades        Trade[]
+  isActive      Boolean   @default(true)
+  lastChecked   DateTime  @default(now())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([address, userId])
+  @@map("wallets")
+}
+
+model Trade {
+  id            String    @id @default(cuid())
+  walletId      String
+  wallet        Wallet    @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  signature     String    @unique
+  tokenSymbol   String?
+  amount        Float?
+  direction     String    // "buy" or "sell"
+  timestamp     DateTime
+  emailSent     Boolean   @default(false)
+  emailError    String?
+  createdAt     DateTime  @default(now())
+
+  @@map("trades")
+}
+
+model PollingLog {
+  id            String    @id @default(cuid())
+  walletId      String
+  status        String    // "success", "error", "pending"
+  message       String?
+  tradeFound    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+
+  @@map("polling_logs")
+}

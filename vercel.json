@@ -1,0 +1,17 @@
+{
+  "domains": [
+    "soltracks.bario.me"
+  ],
+  "env": [
+    "DATABASE_URL",
+    "SOLANA_RPC_URL",
+    "RESEND_API_KEY",
+    "JWT_SECRET"
+  ],
+  "crons": [
+    {
+      "path": "/api/monitoring/run",
+      "schedule": "*/5 * * * *"
+    }
+  ]
+}

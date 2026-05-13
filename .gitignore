@@ -1,0 +1,16 @@
+node_modules/
+.next/
+.env.local
+.env.*.local
+*.log
+.DS_Store
+dist/
+build/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.env
+.env.production.local
+prisma/.env
