@@ -4,11 +4,5 @@
     "SOLANA_RPC_URL": "@solana_rpc_url",
     "RESEND_API_KEY": "@resend_api_key",
     "JWT_SECRET": "@jwt_secret"
-  },
-  "crons": [
-    {
-      "path": "/api/monitoring/run",
-      "schedule": "*/5 * * * *"
-    }
-  ]
+  }
 }
