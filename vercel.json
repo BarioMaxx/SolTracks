@@ -1,7 +1,4 @@
 {
-  "domains": [
-    "soltracks.bario.me"
-  ],
   "env": {
     "DATABASE_URL": "@database_url",
     "SOLANA_RPC_URL": "@solana_rpc_url",
